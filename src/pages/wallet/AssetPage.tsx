@@ -6,11 +6,12 @@ import { useCurrency } from "data/settings/Currency"
 import { useExchangeRates } from "data/queries/coingecko"
 import { useBankBalance } from "data/queries/bank"
 import AssetChain from "./AssetChain"
-import { Button } from "components/general"
+import { Button, CopyIcon } from "components/general"
 import { useTranslation } from "react-i18next"
 import { capitalize } from "@mui/material"
 import Vesting from "./Vesting"
 import { isTerraChain } from "utils/chain"
+import { Tag } from "components/display"
 
 const AssetPage = () => {
   const currency = useCurrency()
@@ -35,6 +36,21 @@ const AssetPage = () => {
     <>
       <section className={styles.details}>
         <TokenIcon token={token} icon={icon} size={50} />
+        <div className={styles.asset_info_denom}>
+          <Tag color={"default"}>
+            <span>
+              {denom.length > 12
+                ? denom.slice(0, 5) +
+                  "..." +
+                  denom.slice(denom.length - 5, denom.length)
+                : denom}
+            </span>
+          </Tag>
+
+          <span style={{ marginTop: 4 }}>
+            <CopyIcon text={denom} />
+          </span>
+        </div>
         <h1>
           {currency.symbol}{" "}
           <Read
